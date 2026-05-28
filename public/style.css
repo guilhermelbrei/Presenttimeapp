@@ -1,0 +1,330 @@
+/* --- DESIGN SYSTEM MOBILE PREMIUM --- */
+:root {
+    --bg-color: #F8F9FA;
+    --text-primary: #1A1F24;
+    --text-secondary: #6B7280;
+    --accent-green: #4ade80;
+    --accent-green-dark: #22c55e;
+    --focus-color: #f97316;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.05);
+    --nav-height: 85px;
+}
+
+* {
+    box-sizing: border-box; margin: 0; padding: 0;
+    font-family: 'Outfit', sans-serif;
+    -webkit-tap-highlight-color: transparent; /* Remove brilho de clique no mobile */
+}
+
+body {
+    background-color: #E2E8F0;
+    color: var(--text-primary);
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; overflow: hidden;
+}
+
+/* Container do App que simula uma tela de smartphone */
+.mobile-frame {
+    width: 100%; max-width: 420px;
+    height: 100vh;
+    background-color: var(--bg-color);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    /* Fundo suave calmo de SPA mental */
+    background-image: radial-gradient(circle at top right, #dcfce7 0%, transparent 50%),
+                      radial-gradient(circle at bottom left, #ffedd5 0%, transparent 50%);
+}
+
+@media (min-width: 421px) {
+    .mobile-frame { border-radius: 40px; border: 8px solid #fff; height: 90vh; max-height: 900px; }
+}
+
+.app-content {
+    height: calc(100% - var(--nav-height));
+    overflow-y: auto;
+    padding: 30px 20px 40px 20px;
+}
+.app-content::-webkit-scrollbar { display: none; } /* Scroll suave e limpo */
+
+/* Troca de Telas (Tabs) */
+.tab-view { display: none; }
+.tab-view.active { display: block; }
+.hidden { display: none !important; }
+
+/* Animações Flutuantes */
+.fade-in { animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Textos e Espaçamentos Mobile */
+.header h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px; }
+.header .date { font-size: 0.9rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+.subtitle { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; font-weight: 400; }
+h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 5px; }
+
+.mb-4 { margin-bottom: 1.5rem; }
+.mt-1 { margin-top: 0.25rem; }
+.mt-3 { margin-top: 1rem; }
+.mt-4 { margin-top: 1.5rem; }
+.mt-5 { margin-top: 2rem; }
+.w-100 { width: 100%; }
+.text-center { text-align: center; }
+
+/* Cards Translúcidos (Glassmorphism Premium) */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: var(--shadow-soft);
+}
+
+.quote-card {
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4));
+}
+.quote-icon { font-size: 2.2rem; color: var(--accent-green-dark); margin-bottom: 10px; }
+.quote-card p { font-size: 1.15rem; font-style: italic; font-weight: 500; color: var(--text-primary); }
+
+/* Range Sliders Mobile */
+.slider-group { margin-bottom: 25px; }
+.slider-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.slider-header label { font-weight: 600; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+.slider-header ion-icon { color: var(--text-secondary); font-size: 1.3rem; }
+.score-display { font-weight: 700; color: var(--accent-green-dark); font-size: 1.3rem; }
+
+input[type=range] {
+    width: 100%; height: 10px; border-radius: 5px;
+    background: #E5E7EB; outline: none; appearance: none;
+}
+input[type=range]::-webkit-slider-thumb {
+    appearance: none; width: 28px; height: 28px; border-radius: 50%;
+    background: var(--accent-green-dark); cursor: pointer;
+    box-shadow: 0 4px 10px rgba(34, 197, 94, 0.4); border: 2px solid #fff;
+}
+
+/* Botões Arredondados estilo iOS */
+.btn-primary {
+    background: var(--text-primary); color: white; border: none; padding: 18px; 
+    border-radius: 16px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: 0.2s;
+}
+.btn-primary:active { transform: scale(0.97); }
+
+/* Entradas de Tarefas */
+.task-input-wrapper { display: flex; gap: 10px; }
+.task-input-wrapper input {
+    flex: 1; padding: 16px; border-radius: 16px; border: none;
+    background: rgba(255,255,255,0.8); font-size: 1rem; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); outline: none;
+}
+.btn-icon {
+    background: var(--text-primary); color: white; border: none; width: 56px;
+    border-radius: 16px; font-size: 1.8rem; display: flex; align-items: center; justify-content: center;
+}
+.btn-icon:active { transform: scale(0.95); }
+
+/* Listas de Hábitos e Biblioteca */
+.routine-list, .practices-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 2rem;
+}
+
+/* ==========================================================================
+   Aba Histórico (History)
+   ========================================================================== */
+
+.stats-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 1rem 0.5rem;
+    border-radius: var(--radius-md);
+    flex: 1;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.stat-box ion-icon {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 0.25rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.chart-container {
+    position: relative;
+    height: 250px;
+    width: 100%;
+}
+
+/* ==========================================================================
+   Modal Interativo & Animações de Práticas
+   ========================================================================== */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-content.interactive-content {
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    padding: 2rem;
+}
+
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-light);
+    cursor: pointer;
+}
+
+.breathing-container {
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+}
+
+.breathing-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    /* Substituído as variáveis indefinidas por cores calmantes e contrastantes */
+    background: linear-gradient(135deg, #14b8a6, #3b82f6); 
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 1s ease-in-out; /* O JS vai sobrepor isso dinamicamente */
+}
+
+#practice-timer {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.task-card, .practice-card {
+    background: #fff; padding: 20px; border-radius: 20px;
+    display: flex; align-items: flex-start; gap: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: relative; overflow: hidden;
+}
+
+/* Marcadores de Cores Laterais */
+.task-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: #E5E7EB; }
+.task-card.focus-item::before { background: var(--focus-color); }
+
+.task-card input[type="checkbox"] {
+    width: 26px; height: 26px; accent-color: var(--accent-green-dark); margin-top: 2px;
+}
+.task-content, .practice-content { flex: 1; }
+.task-type {
+    font-size: 0.75rem; text-transform: uppercase; font-weight: 700;
+    letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 6px;
+}
+.focus-item .task-type { color: var(--focus-color); }
+.task-text { font-size: 1.05rem; font-weight: 500; color: var(--text-primary); line-height: 1.4; }
+.task-card.completed .task-text { text-decoration: line-through; color: var(--text-secondary); }
+.task-card.completed { opacity: 0.6; }
+
+/* Estilo Exclusivo da Biblioteca */
+.practice-icon { font-size: 3rem; color: var(--accent-green-dark); background: #dcfce7; padding: 10px; border-radius: 16px; }
+.practice-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 6px; }
+.practice-duration { 
+    font-size: 0.75rem; color: var(--accent-green-dark); font-weight: 700; 
+    margin-bottom: 10px; display: inline-flex; align-items: center; gap: 4px;
+    background: #f0fdf4; padding: 4px 10px; border-radius: 12px;
+}
+.practice-desc { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.5; }
+
+.empty-state ion-icon { font-size: 4.5rem; color: #CBD5E1; margin-bottom: 15px; }
+.empty-state p { color: var(--text-secondary); font-size: 1rem; }
+
+/* BOTTOM NAVIGATION BAR NATIVA */
+.bottom-nav {
+    position: absolute; bottom: 0; left: 0; width: 100%; height: var(--nav-height);
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+    border-top: 1px solid rgba(0,0,0,0.06);
+    display: flex; justify-content: space-around; align-items: center;
+    padding-bottom: env(safe-area-inset-bottom, 10px);
+    z-index: 100;
+}
+.nav-btn {
+    background: none; border: none;
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
+    color: #9CA3AF; font-size: 0.75rem; font-weight: 600;
+    cursor: pointer; transition: 0.3s; padding: 10px;
+}
+.nav-btn ion-icon { font-size: 1.8rem; transition: 0.2s; }
+.nav-btn.active { color: var(--text-primary); }
+.nav-btn.active ion-icon { transform: translateY(-4px); color: var(--accent-green-dark); }
+
+/* --- AUTENTICAÇÃO --- */
+.auth-view .glass-card { padding: 30px 24px; }
+.input-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.input-group label { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
+.input-group input { 
+    padding: 16px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(255,255,255,0.7); font-size: 1rem; outline: none; transition: 0.2s;
+}
+.input-group input:focus { border-color: var(--accent-green-dark); background: #fff; }
+.auth-link { font-size: 0.95rem; color: var(--text-secondary); cursor: pointer; }
+.auth-link strong { color: var(--text-primary); transition: 0.2s; }
+.auth-link:active strong { color: var(--accent-green-dark); }
+.error-msg { color: #ef4444; font-size: 0.85rem; font-weight: 600; margin-top: 10px; }

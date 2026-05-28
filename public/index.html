@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Present Time</title>
+    <!-- Fontes Premium e Biblioteca de Ícones Nativa Mobile -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Moldura que imita celular em telas grandes -->
+    <div class="mobile-frame">
+        
+        <main class="app-content">
+            
+            <!-- View: Login -->
+            <section id="view-login" class="tab-view active fade-in auth-view">
+                <div class="header text-center mt-5">
+                    <h1>Present Time</h1>
+                    <p class="subtitle mt-1">Conecte-se ao seu momento presente.</p>
+                </div>
+                <div class="glass-card mt-4">
+                    <form id="login-form" onsubmit="event.preventDefault(); app.login();">
+                        <div class="input-group">
+                            <label>E-mail</label>
+                            <input type="email" id="login-email" required placeholder="seu@email.com">
+                        </div>
+                        <div class="input-group">
+                            <label>Senha</label>
+                            <input type="password" id="login-password" required placeholder="••••••••">
+                        </div>
+                        <p class="error-msg text-center hidden" id="login-error">Erro ao logar.</p>
+                        <button type="submit" class="btn-primary w-100 mt-4">Entrar</button>
+                    </form>
+                    <p class="text-center mt-4 auth-link" onclick="app.switchAuth('register')">
+                        Ainda não tem conta? <strong>Cadastre-se</strong>
+                    </p>
+                </div>
+            </section>
+
+            <!-- View: Cadastro -->
+            <section id="view-register" class="tab-view fade-in auth-view">
+                <div class="header text-center mt-5">
+                    <h1>Nova Conta</h1>
+                    <p class="subtitle mt-1">Sua jornada começa aqui.</p>
+                </div>
+                <div class="glass-card mt-4">
+                    <form id="register-form" onsubmit="event.preventDefault(); app.register();">
+                        <div class="input-group">
+                            <label>Nome</label>
+                            <input type="text" id="reg-name" required placeholder="Como quer ser chamado?">
+                        </div>
+                        <div class="input-group">
+                            <label>E-mail</label>
+                            <input type="email" id="reg-email" required placeholder="seu@email.com">
+                        </div>
+                        <div class="input-group">
+                            <label>Senha</label>
+                            <input type="password" id="reg-password" required placeholder="Crie uma senha">
+                        </div>
+                        <p class="error-msg text-center hidden" id="reg-error">Erro ao cadastrar.</p>
+                        <button type="submit" class="btn-primary w-100 mt-4">Cadastrar</button>
+                    </form>
+                    <p class="text-center mt-4 auth-link" onclick="app.switchAuth('login')">
+                        Já tem uma conta? <strong>Entrar</strong>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Tab 1: Home (Diagnóstico Sincero e Inspiração) -->
+            <section id="tab-home" class="tab-view fade-in">
+                <div class="header">
+                    <h1>Present Time</h1>
+                    <p class="date" id="current-date">Hoje</p>
+                    <p id="welcome-message" class="subtitle mt-1 hidden"></p>
+                </div>
+
+                <div class="glass-card quote-card mb-4">
+                    <ion-icon name="leaf-outline" class="quote-icon"></ion-icon>
+                    <p id="daily-phrase">"Carregando sabedoria..."</p>
+                </div>
+
+                <div class="glass-card">
+                    <h2>Diagnóstico Diário</h2>
+                    <p class="subtitle">Seja honesto. Avalie de 1 (Exausto) a 5 (Pleno).</p>
+                    
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <label><ion-icon name="fitness-outline"></ion-icon> Físico</label>
+                            <span class="score-display" id="val-physical">3</span>
+                        </div>
+                        <input type="range" id="score-physical" min="1" max="5" value="3">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <label><ion-icon name="brain-outline"></ion-icon> Mental</label>
+                            <span class="score-display" id="val-mental">3</span>
+                        </div>
+                        <input type="range" id="score-mental" min="1" max="5" value="3">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <label><ion-icon name="planet-outline"></ion-icon> Espiritual</label>
+                            <span class="score-display" id="val-spiritual">3</span>
+                        </div>
+                        <input type="range" id="score-spiritual" min="1" max="5" value="3">
+                    </div>
+
+                    <button class="btn-primary w-100 mt-4" onclick="app.submitDiagnosis()">
+                        Gerar Rotina Inteligente
+                    </button>
+                </div>
+            </section>
+
+            <!-- Tab 2: Rotina Diária (Organizador de Vida) -->
+            <section id="tab-routine" class="tab-view fade-in">
+                <div class="header">
+                    <h1>Sua Rotina</h1>
+                    <p class="subtitle mt-1">Consciência e Produtividade em sinergia.</p>
+                </div>
+
+                <div class="task-input-wrapper mt-3">
+                    <input type="text" id="new-task-input" placeholder="Nova tarefa da faculdade/trabalho...">
+                    <button class="btn-icon" onclick="app.addTask()"><ion-icon name="add-outline"></ion-icon></button>
+                </div>
+
+                <div class="routine-list" id="routine-list">
+                    <!-- Cards dinâmicos inseridos via JavaScript -->
+                    <div class="empty-state text-center mt-5">
+                        <ion-icon name="calendar-clear-outline"></ion-icon>
+                        <p>Faça o Diagnóstico na Home para preencher o seu dia.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 3: Biblioteca de Práticas de Mindfulness -->
+            <section id="tab-library" class="tab-view fade-in">
+                <div class="header">
+                    <h1>Biblioteca</h1>
+                    <p class="subtitle mt-1">Práticas explicativas para ancoragem emocional.</p>
+                </div>
+
+                <div class="practices-list mt-3" id="practices-list">
+                    <!-- Cards de meditação gerados via JS -->
+                </div>
+            </section>
+
+            <!-- Tab 4: Histórico (Estatísticas e Gráficos) -->
+            <section id="tab-history" class="tab-view fade-in">
+                <div class="header">
+                    <h1>Seu Progresso</h1>
+                    <p class="subtitle mt-1">Acompanhe a evolução da sua tríade.</p>
+                </div>
+
+                <div class="glass-card mt-3">
+                    <h2>Médias da Semana</h2>
+                    <div class="stats-row mt-3">
+                        <div class="stat-box">
+                            <ion-icon name="fitness-outline"></ion-icon>
+                            <span class="stat-value" id="avg-physical">--</span>
+                            <span class="stat-label">Físico</span>
+                        </div>
+                        <div class="stat-box">
+                            <ion-icon name="brain-outline"></ion-icon>
+                            <span class="stat-value" id="avg-mental">--</span>
+                            <span class="stat-label">Mental</span>
+                        </div>
+                        <div class="stat-box">
+                            <ion-icon name="planet-outline"></ion-icon>
+                            <span class="stat-value" id="avg-spiritual">--</span>
+                            <span class="stat-label">Espiritual</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card mt-4">
+                    <h2>Evolução Diária</h2>
+                    <div class="chart-container mt-3">
+                        <canvas id="historyChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Modal de Prática Interativa -->
+        <div id="interactive-modal" class="modal-overlay hidden">
+            <div class="modal-content glass-card interactive-content">
+                <button class="close-btn" onclick="app.closePracticeModal()">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+                
+                <h2 id="practice-title" class="mb-2">Nome da Prática</h2>
+                <p id="practice-status" class="subtitle mb-4">Prepare-se...</p>
+
+                <div class="breathing-container">
+                    <div id="breathing-circle" class="breathing-circle">
+                        <span id="practice-timer">--</span>
+                    </div>
+                </div>
+
+                <div class="modal-actions mt-4">
+                    <button id="start-practice-btn" class="btn-primary" onclick="app.startInteractivePractice()">Começar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barra de Navegação Inferior de Aparelho Mobile -->
+        <nav id="bottom-nav" class="bottom-nav glass-nav hidden">
+            <button class="nav-btn active" onclick="app.switchTab('home', this)">
+                <ion-icon name="home-outline"></ion-icon>
+                <span>Home</span>
+            </button>
+            <button class="nav-btn" onclick="app.switchTab('routine', this)">
+                <ion-icon name="list-outline"></ion-icon>
+                <span>Rotina</span>
+            </button>
+            <button class="nav-btn" onclick="app.switchTab('library', this)">
+                <ion-icon name="library-outline"></ion-icon>
+                <span>Biblioteca</span>
+            </button>
+            <button class="nav-btn" onclick="app.switchTab('history', this)">
+                <ion-icon name="stats-chart-outline"></ion-icon>
+                <span>Histórico</span>
+            </button>
+        </nav>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
